@@ -71,10 +71,10 @@ Initially, I did it from one of my clients who has needed to send a report by em
 	{exp:mx_email_from_template to="admin@example.com" from="admin@example.com" subject="You're my only hope"}
 	   You must see this droid safely delivered to him on Alderaan. This is our most desperate hour. Help me, Obi-Wan Kenobi. You're my only hope.
 
-	    {attachment}
+	    {files}
         [/files/Death_Star_Technical_Manual_blueprints.jpg]
         [/files/Death_Star_Technical_Manual_blueprints_planet.jpg]
-       {/attachment}
+       {/files}
 	{/exp:mx_email_from_template}
 
 ### send email with generated file ###
