@@ -1,15 +1,15 @@
-#MX Email From Template for ExpressionEngine 5
+# MX Email From Template for ExpressionEngine 5 #
 MX Email From Template is add-on which helps you to send emails right from EE template.
 
 Initially, I did it from one of my clients who has needed to send a report by email with data from channel entries inside the CSV file. When EE5  issued, I decided to add some extra settings and release it for the community.
 
 
-##Installation
+##Installation##
 
 * Place the **mx_email_from_template** folder inside your **user/addons** folder
 * Go to **cp/addons** and install *MX Email From Template*.
 
-##Parameters settings
+##Parameters settings##
 **to** - destination email address. Accepts multiple email addresses, comma-separated. (default: site settings, "address")
 
 **cc** - [optional] email address to carbon-copy
@@ -32,9 +32,9 @@ Initially, I did it from one of my clients who has needed to send a report by em
 
 **echo** - Set to "on" if you want to display the tag contents in the template.
 
-##Config.php
+##Config.php##
 
-##Tags
+##Tags##
 
 {to}
 
@@ -66,7 +66,7 @@ Initially, I did it from one of my clients who has needed to send a report by em
 	   This tag content is being viewed at {uri_string} by {httpagent}. Sending notification to {to}.
 	{/exp:mx_email_from_template}
 
-### send email with attachment
+### send email with attachment###
 
 	{exp:mx_email_from_template to="admin@example.com" from="admin@example.com" subject="You're my only hope"}
 	   You must see this droid safely delivered to him on Alderaan. This is our most desperate hour. Help me, Obi-Wan Kenobi. You're my only hope.
@@ -77,7 +77,7 @@ Initially, I did it from one of my clients who has needed to send a report by em
        {/attachment}
 	{/exp:mx_email_from_template}
 
-### send email with generated file
+### send email with generated file###
 	{exp:mx_email_from_template to="admin@example.com" from="admin@example.com" subject="information about your account" parser="inward"}
 	You can find data in attachment.
 	Thanks for you help!
@@ -88,11 +88,11 @@ Initially, I did it from one of my clients who has needed to send a report by em
 	{/csv:file}
 	{/exp:mx_email_from_template}
 
-##Support Policy
+##Support Policy##
 
 This is Communite Edition (CE) add-on.
 
-##Contributing To MX Email From Template
+##Contributing To MX Email From Template##
 
 Your participation to MX Email From Template development is very welcome!
 
@@ -101,9 +101,9 @@ You may participate in the following ways:
 * [Report issues](https://github.com/MaxLazar/mx-email-from-template/issues)
 
 
-##License
+##License##
 
 The MX Email From Template for ExpressionEngine 3 is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
-##Thanks To
+##Thanks To##
 [Michael Rog](https://rog.ee/email_from_template/)
