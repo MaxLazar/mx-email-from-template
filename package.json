@@ -1,0 +1,18 @@
+{
+    "schema_version": "1.0",
+    "addons": [
+        {
+            "name": "mx_email_from_template",
+            "label": "MX Email From Template",
+            "version": "1.0",
+            "types": [
+                "add-on"
+            ],
+            "paths": {
+                "system": [
+                    "system/user/addons/mx_email_from_template"
+                ]
+            }
+        }
+    ]
+}
