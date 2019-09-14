@@ -1,12 +1,11 @@
-# MX Email From Template for ExpressionEngine 5 #
+# MX Email From Template for ExpressionEngine
 MX Email From Template is add-on which helps you to send emails right from EE template.
 
-Initially, I did it from one of my clients who has needed to send a report by email with data from channel entries inside the CSV file. When EE5  issued, I decided to add some extra settings and release it for the community.
-
+Initially, I did it from one of my clients who needed to send a report by email with data from channel entries inside the CSV file. When EE5 issued, I added some extra settings and released it for the community.
 
 ## Installation ##
 
-* Place the **mx_email_from_template** folder inside your **user/addons** folder
+* Place the **mx\_email\_from\_template** folder inside your **user/addons** folder
 * Go to **cp/addons** and install *MX Email From Template*.
 
 ## Parameters settings ##
@@ -103,7 +102,7 @@ You may participate in the following ways:
 
 ## License ##
 
-The MX Email From Template for ExpressionEngine 3 is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+The MX Email From Template for ExpressionEngine 5 is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
 ## Thanks To ##
 [Michael Rog](https://rog.ee/email_from_template/)

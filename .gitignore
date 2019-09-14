@@ -1,7 +1,27 @@
+
+
+# BUILD FILES
+/bower_components/*
+/node_modules/*
+/build/*
+/yarn-error.log
+
+# MISC FILES
+.cache
 .DS_Store
-.AppleDouble
-.LSOverride
-Icon
-._*
-.Spotlight-V100
-.Trashes
+.idea
+.project
+.settings
+*.esproj
+*.sublime-workspace
+*.sublime-project
+*.tmproj
+*.tmproject
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+config.codekit3
+prepros-6.config
+*.zip

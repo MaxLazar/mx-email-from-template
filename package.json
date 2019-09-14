@@ -4,7 +4,7 @@
         {
             "name": "mx_email_from_template",
             "label": "MX Email From Template",
-            "version": "1.0",
+            "version": "1.0.1",
             "types": [
                 "add-on"
             ],
