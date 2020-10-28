@@ -1,6 +1,6 @@
 # MX Email From Template for ExpressionEngine
 
-![MX Email From Template for ExpressionEngine](resources/img/mx-email-from-template.png)
+![MX Email From Template for ExpressionEngine](mx_email_from_template/icon.png)
 
 MX Email From Template is add-on which helps you to send emails right from EE template.
 
