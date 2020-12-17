@@ -1,4 +1,4 @@
-<?php if (! defined('BASEPATH')) {
+<?php if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
@@ -10,7 +10,6 @@
  * @link           http://eec.ms/
  * @license        http://opensource.org/licenses/MIT
  */
-
 class Mx_email_from_template
 {
 
@@ -76,7 +75,7 @@ class Mx_email_from_template
         'httpagent'               => '',
         'ip'                      => '',
         'uri_string'              => '',
-        'redirect'              => ''
+        'redirect'                => ''
     );
 
 
@@ -100,8 +99,16 @@ class Mx_email_from_template
      */
     public function __construct()
     {
+        if (!isset(ee()->config->item('mx_email_from_template')['paths'])) {
+            ee()->config->set_item('mx_email_from_template', array('paths' => FCPATH));
+        }
 
-        $this->_cache_path            = ( !$this->_cache_path ) ? str_replace('\\', '/', PATH_CACHE) . '/email_from_template' : false;
+        $this->_cache_path = (!$this->_cache_path) ? str_replace(
+                '\\',
+                '/',
+                PATH_CACHE
+            ) . '/email_from_template' : false;
+
         $this->package                = basename(__DIR__);
         $this->info                   = ee('App')->get($this->package);
         $this->settings['from']       = $this->settings['to'] = ee()->config->item('webmaster_email');
@@ -110,6 +117,8 @@ class Mx_email_from_template
         $this->settings['httpagent']  = ee()->input->user_agent();
         $this->settings['uri_string'] = ee()->uri->uri_string();
         $this->return_data            = $this->email();
+
+        return $this->return_data;
     }
 
     /**
@@ -124,28 +133,28 @@ class Mx_email_from_template
         // Get parameters
         // -------------------------------------------
 
-        $LD             = '\{';
-        $RD             = '\}';
-        $SLASH          = '\/';
-        $tagdata        = ee()->TMPL->tagdata;
+        $LD      = '\{';
+        $RD      = '\}';
+        $SLASH   = '\/';
+        $tagdata = ee()->TMPL->tagdata;
 
-        $errors         = array();
+        $errors = array();
 
         ee()->load->helper('file');
 
         foreach ($this->settings as $key => $value) {
-            $this->settings[$key] =  ee('Security/XSS')->clean(ee()->TMPL->fetch_param($key, $value));
+            $this->settings[$key] = ee('Security/XSS')->clean(ee()->TMPL->fetch_param($key, $value));
         }
 
         $redirect = ee('Security/XSS')->clean(ee()->TMPL->fetch_param($key, false));
-        $echo = ee('Security/XSS')->clean(ee()->TMPL->fetch_param('echo', false));
-        $echo = $echo == 'on' ? true : false;
+        $echo     = ee('Security/XSS')->clean(ee()->TMPL->fetch_param('echo', false));
+        $echo     = $echo == 'on' ? true : false;
 
         $variables[] = $this->settings;
-        $tagdata = ee()->TMPL->parse_variables($tagdata, $variables) ;
+        $tagdata     = ee()->TMPL->parse_variables($tagdata, $variables);
 
         $this->settings['subject'] = ee()->TMPL->parse_globals($this->settings['subject']);
-        $tagdata = ee()->TMPL->parse_globals($tagdata);
+        $tagdata                   = ee()->TMPL->parse_globals($tagdata);
 
         $subject = ee()->TMPL->parse_globals($this->settings['subject']);
         $tagdata = ee()->TMPL->parse_globals($tagdata);
@@ -178,7 +187,8 @@ class Mx_email_from_template
             $this->log_debug_message('Adding attachments...', 'start');
 
             foreach ($this->files as $attachment_path) {
-                if (file_exists($attachment_path)) {
+                $attachment_path = reduce_double_slashes(ee()->config->item('mx_email_from_template')['paths'] . $attachment_path);
+                if (is_file($attachment_path)) {
                     $this->log_debug_message('Attachment: ', $attachment_path);
                     ee()->email->attach($attachment_path);
                 } else {
@@ -187,7 +197,7 @@ class Mx_email_from_template
             }
         }
 
-        if (! ee()->email->Send()) {
+        if (!ee()->email->Send()) {
             $errors[] = ee()->email->print_debugger();
             ee()->email->clear(true);
         }
@@ -217,20 +227,24 @@ class Mx_email_from_template
      */
     protected function create_files($tagdata)
     {
-        $variable_csv   = "csv:file";
-        if (preg_match("/".LD.$variable_csv.".*?".RD."(.*?)".LD.'\/'.$variable_csv.RD."/s", $tagdata, $csv)) {
+        $variable_csv = "csv:file";
+        if (preg_match(
+            "/" . LD . $variable_csv . ".*?" . RD . "(.*?)" . LD . '\/' . $variable_csv . RD . "/s",
+            $tagdata,
+            $csv
+        )) {
             $this->log_debug_message('Generate CSV file', 'start');
 
-            $file_name = $this->_cache_path.'/'.time().".csv";
+            $file_name = $this->_cache_path . '/' . time() . ".csv";
 
-            if (! write_file($file_name, $csv[1])) {
+            if (!write_file($file_name, $csv[1])) {
                 $this->log_debug_message('Generate CSV file', 'failed');
             } else {
-                $this->files[] = $file_name;
+                $this->files[]           = $file_name;
                 $this->files_to_unlink[] = $file_name;
             }
 
-            if (! is_dir($this->_cache_path)) {
+            if (!is_dir($this->_cache_path)) {
                 mkdir($this->_cache_path . "", 0777, true);
             }
 
@@ -248,16 +262,37 @@ class Mx_email_from_template
     protected function process_files($tagdata)
     {
         $variable_files = "files";
-        if (preg_match("/".LD.$variable_files.".*?".RD."(.*?)".LD.'\/'.$variable_files.RD."/s", $tagdata, $file_list)) {
-
-            $filenames = explode("]", str_replace(array( '&#47;', '[', "\n" ), array( '/', '', '' ), $file_list[1]));
-            $tagdata = str_replace($file_list[0], "", $tagdata);
+        if (preg_match(
+            "/" . LD . $variable_files . ".*?" . RD . "(.*?)" . LD . '\/' . $variable_files . RD . "/s",
+            $tagdata,
+            $file_list
+        )) {
+            $filenames = explode("]", str_replace(array('&#47;', '[', "\n"), array('/', '', ''), $file_list[1]));
+            $tagdata   = str_replace($file_list[0], "", $tagdata);
             foreach ($filenames as $key => $value) {
                 $this->files[] = trim($value);
             }
         }
 
         return $tagdata;
+    }
+
+    /**
+     * [email_split description] Thanks to https://stackoverflow.com/questions/16685416/split-full-email-addresses-into-name-and-email
+     * @param  [type] $str [description]
+     * @return [type]      [description]
+     */
+    public function email_split($str)
+    {
+        $str .= " ";
+
+        $re = '/(?:,\s*)?(.*?)\s*(?|<([^>]*)>|\[([^][]*)]|(\S+@\S+))/';
+        preg_match_all($re, $str, $m, PREG_SET_ORDER, 0);
+
+        $name  = (isset($m[0][1])) ? $m[0][1] : '';
+        $email = (isset($m[0][2])) ? $m[0][2] : '';
+
+        return array('name' => trim($name), 'email' => trim($email));
     }
 
     /**
@@ -277,8 +312,8 @@ class Mx_email_from_template
     /**
      * Simple method to log a debug message to the EE Debug console.
      *
-     * @param string  $method
-     * @param string  $message
+     * @param string $method
+     * @param string $message
      * @return void
      */
     protected function log_debug_message($method = '', $message = '')

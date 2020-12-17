@@ -1,4 +1,7 @@
 # MX Email From Template for ExpressionEngine
+
+![MX Email From Template for ExpressionEngine](mx_email_from_template/icon.png)
+
 MX Email From Template is add-on which helps you to send emails right from EE template.
 
 Initially, I did it from one of my clients who needed to send a report by email with data from channel entries inside the CSV file. When EE5 issued, I added some extra settings and released it for the community.
@@ -32,6 +35,17 @@ Initially, I did it from one of my clients who needed to send a report by email 
 **echo** - Set to "on" if you want to display the tag contents in the template.
 
 ## Config.php ##
+
+
+## Configuration Overrides
+
+Root path to files
+
+	$config['mx_email_from_template'] = [
+	    // Enter the path to the directories where you store your files. Absolute paths should be used. Default - web root
+	    'paths' => '/var/www/example.com/public_html'
+	];
+
 
 ## Tags ##
 

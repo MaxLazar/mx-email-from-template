@@ -15,6 +15,6 @@ return array(
     'docs_url'       => 'https://eec.ms/add-ons/mx-email-from-template',
     'name'           => 'MX Email From Template',
     'description'    => 'Add-on which helps you to send emails right from EE template',
-    'version'        => '1.0.1',
+    'version'        => '1.0.2',
     'namespace'      => 'MX\EmailFromTemplate'
 );

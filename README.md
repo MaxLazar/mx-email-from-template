@@ -36,6 +36,17 @@ Initially, I did it from one of my clients who needed to send a report by email 
 
 ## Config.php ##
 
+
+## Configuration Overrides
+
+Root path to files
+
+	$config['mx_email_from_template'] = [
+	    // Enter the path to the directories where you store your files. Absolute paths should be used. Default - web root
+	    'paths' => '/var/www/example.com/public_html'
+	];
+
+
 ## Tags ##
 
 {to}
